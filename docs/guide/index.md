@@ -207,10 +207,10 @@ and composition of pipelines programmatically.
 
 ### Orchestration and Portability
 
-TFX is designed to be highly portable to multiple environments and
-orchestration frameworks, including Apache Airflow and Kubeflow.  It is also
-portable to different computing platforms, including bare-metal and the
-Google Cloud Platform (GCP).
+TFX is designed to be highly portable to multiple environments and orchestration
+frameworks, including [Apache Airflow](airflow.md), [Kubeflow](kubeflow.md) and
+[Beam as Orchestrator](beam_orchestrator.md). It is also portable to different
+computing platforms, including bare-metal and the Google Cloud Platform (GCP).
 
 Note: The current revision of this user guide primarily discusses deployment
 on a bare-metal system using Apache Airflow for orchestration.

@@ -29,6 +29,8 @@ toc:
   path: /tfx/guide/orchestra
 - title: "Kubeflow Pipelines"
   path: /tfx/guide/kubeflow
+- title: "Beam as Orchestrator"
+  path: /tfx/guide/beam_orchestrator
 
 - heading: "Libraries"
   style: divider

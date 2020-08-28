@@ -22,14 +22,14 @@ import os
 
 from tfx.components import CsvExampleGen
 from tfx.components import StatisticsGen
-from fused_component.component import FusedComponent
-from fused_component.executor import Executor
+from tfx.orchestration.experimental.optimizations.fused_component.component import FusedComponent
+from tfx.orchestration.experimental.optimizations.fused_component.executor import Executor
 
 _pipeline_name = 'chicago_taxi_beam'
 
 # This example assumes that the taxi data is stored in ~/taxi/data and the
 # taxi utility function is in ~/taxi.  Feel free to customize this as needed.
-_taxi_root = os.path.join(os.environ['HOME'], 'taxi')
+_taxi_root = os.path.join(os.environ['HOME'], 'gitks/tfx/tfx/examples/chicago_taxi_pipeline')
 _data_root = os.path.join(_taxi_root, 'data', 'simple')
 
 # Directory and data locations.  This example assumes all of the chicago taxi

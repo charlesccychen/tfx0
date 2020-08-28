@@ -168,13 +168,8 @@ class Executor(base_executor.BaseExecutor):
       if not p:
         p = executor._make_beam_pipeline() # pylint: disable=protected-access
 
-      use_cached_inputs = False
       if component in fusion_map:
         parent = fusion_map[component]
-        if self._have_matching_beam_io_signatures(component, parent):
-          use_cached_inputs = False #TODO: Change to True
-
-      if use_cached_inputs:
         beam_inputs = beam_outputs_cache[fusion_map[component]]
       else:
         beam_inputs = executor.read_inputs(

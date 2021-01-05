@@ -20,7 +20,10 @@ from __future__ import print_function
 
 from typing import Any, Dict, List, Optional, Text, Union
 
-import jinja2
+try:
+  import jinja2
+except ModuleNotFoundError:
+  jinja2 = None
 from tfx import types
 from tfx.dsl.component.experimental import executor_specs
 from tfx.dsl.component.experimental import placeholders
@@ -74,6 +77,9 @@ def _render_items(items: List[Text], context: Dict[Text, Any]) -> List[Text]:
 
 
 def _render_text(text: Text, context: Dict[Text, Any]) -> Text:
+  if not jinja2:
+    raise Exception(
+        'The "jinja2" package must be installed to use this functionality.')
   return jinja2.Template(text).render(context)
 
 

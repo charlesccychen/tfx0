@@ -36,7 +36,23 @@ from tfx.types.component_spec import ComponentSpec
 from tfx.types.component_spec import ExecutionParameter
 
 
-class BulkInferrerSpec(ComponentSpec):
+class _TfxComponentSpec(ComponentSpec):
+  def __init__(self, *args, **kwargs):
+    # TODO(XXX): Refactor directory structure to make it clearer that
+    # TFX-specific artifacts require the full "tfx" package be installed.
+    #
+    # Do not allow usage of TFX-specific artifact if only the core pipeline
+    # SDK package is installed.
+    try:
+      import tfx.components as _
+    except ModuleNotFoundError:
+      raise Exception(
+          'The full "tfx" package must be installed to use this '
+          'functionality.')
+    super(_TfxArtifact, self).__init__(*args, **kwargs)
+
+
+class BulkInferrerSpec(_TfxComponentSpec):
   """BulkInferrer component spec."""
 
   PARAMETERS = {
@@ -66,7 +82,7 @@ class BulkInferrerSpec(ComponentSpec):
   }
 
 
-class EvaluatorSpec(ComponentSpec):
+class EvaluatorSpec(_TfxComponentSpec):
   """Evaluator component spec."""
 
   PARAMETERS = {
@@ -111,7 +127,7 @@ class EvaluatorSpec(ComponentSpec):
   }
 
 
-class ExampleValidatorSpec(ComponentSpec):
+class ExampleValidatorSpec(_TfxComponentSpec):
   """ExampleValidator component spec."""
 
   PARAMETERS = {
@@ -135,7 +151,7 @@ class ExampleValidatorSpec(ComponentSpec):
   }
 
 
-class FileBasedExampleGenSpec(ComponentSpec):
+class FileBasedExampleGenSpec(_TfxComponentSpec):
   """File-based ExampleGen component spec."""
 
   PARAMETERS = {
@@ -158,7 +174,7 @@ class FileBasedExampleGenSpec(ComponentSpec):
   }
 
 
-class QueryBasedExampleGenSpec(ComponentSpec):
+class QueryBasedExampleGenSpec(_TfxComponentSpec):
   """Query-based ExampleGen component spec."""
 
   PARAMETERS = {
@@ -175,7 +191,7 @@ class QueryBasedExampleGenSpec(ComponentSpec):
   }
 
 
-class InfraValidatorSpec(ComponentSpec):
+class InfraValidatorSpec(_TfxComponentSpec):
   """InfraValidator component spec."""
 
   PARAMETERS = {
@@ -201,7 +217,7 @@ class InfraValidatorSpec(ComponentSpec):
   }
 
 
-class ModelValidatorSpec(ComponentSpec):
+class ModelValidatorSpec(_TfxComponentSpec):
   """ModelValidator component spec."""
 
   PARAMETERS = {}
@@ -214,7 +230,7 @@ class ModelValidatorSpec(ComponentSpec):
   }
 
 
-class PusherSpec(ComponentSpec):
+class PusherSpec(_TfxComponentSpec):
   """Pusher component spec."""
 
   PARAMETERS = {
@@ -244,7 +260,7 @@ class PusherSpec(ComponentSpec):
   }
 
 
-class SchemaGenSpec(ComponentSpec):
+class SchemaGenSpec(_TfxComponentSpec):
   """SchemaGen component spec."""
 
   PARAMETERS = {
@@ -268,7 +284,7 @@ class SchemaGenSpec(ComponentSpec):
   }
 
 
-class StatisticsGenSpec(ComponentSpec):
+class StatisticsGenSpec(_TfxComponentSpec):
   """StatisticsGen component spec."""
 
   PARAMETERS = {
@@ -293,7 +309,7 @@ class StatisticsGenSpec(ComponentSpec):
   }
 
 
-class TrainerSpec(ComponentSpec):
+class TrainerSpec(_TfxComponentSpec):
   """Trainer component spec."""
 
   PARAMETERS = {
@@ -333,7 +349,7 @@ class TrainerSpec(ComponentSpec):
   }
 
 
-class TunerSpec(ComponentSpec):
+class TunerSpec(_TfxComponentSpec):
   """ComponentSpec for TFX Tuner Component."""
 
   PARAMETERS = {
@@ -359,7 +375,7 @@ class TunerSpec(ComponentSpec):
   }
 
 
-class TransformSpec(ComponentSpec):
+class TransformSpec(_TfxComponentSpec):
   """Transform component spec."""
 
   PARAMETERS = {

@@ -21,7 +21,10 @@ from __future__ import print_function
 from typing import Any, Dict, List, Text, cast
 
 import absl
-import docker
+try:
+  import docker
+except ModuleNotFoundError:
+  docker = None
 from tfx import types
 from tfx.dsl.component.experimental import executor_specs
 from tfx.dsl.components.base import executor_spec
@@ -52,6 +55,9 @@ class DockerComponentLauncher(base_component_launcher.BaseComponentLauncher):
                     output_dict: Dict[Text, List[types.Artifact]],
                     exec_properties: Dict[Text, Any]) -> None:
     """Execute underlying component implementation."""
+    if not docker:
+      raise Exception(
+          'The "docker" package must be installed to use this functionality.')
 
     executor_container_spec = cast(executor_spec.ExecutorContainerSpec,
                                    self._component_executor_spec)
